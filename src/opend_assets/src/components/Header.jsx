@@ -54,7 +54,7 @@ function Header() {
 
     </Route>
     <Route path = "/collection">
-    <Gallery />
+    <Gallery title = "My NFTS"  />
 
     </Route>
     </Switch>
