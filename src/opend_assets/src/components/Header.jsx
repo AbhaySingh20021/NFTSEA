@@ -1,16 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../../assets/logo.png";
 import {BrowserRouter, Link, Switch, Route} from "react-router-dom";
 import homeImage from "../../assets/home-img.png";
 import Minter from "./Minter";
 import Gallery from "./Gallery";
+import { opend } from "../../../declarations/opend";
+import CURRENT_USER_ID from "../index";
+
+
 
 
 
 
 function Header() {
+
+  const [userownedGallery, setOwnedGallery] = useState();
+
+
+  async function getNFTS() {
+   const userNFTIds = await opend.getOwnedNFTS(CURRENT_USER_ID);
+   console.log(userNFTIds);
+   setOwnedGallery(<Gallery title = "My NFTS"  ids = {userNFTIds} />)
+
+  };
+  useEffect(() => {
+    getNFTS();
+  }, []);
+
   return (
-    <BrowserRouter>
+    <BrowserRouter forceRefresh= {true}>
     <div className="app-root-1">
       <header className="Paper-root AppBar-root AppBar-positionStatic AppBar-colorPrimary Paper-elevation4">
         <div className="Toolbar-root Toolbar-regular header-appBar-13 Toolbar-gutters">
@@ -54,7 +72,8 @@ function Header() {
 
     </Route>
     <Route path = "/collection">
-    <Gallery title = "My NFTS"  />
+      {userownedGallery}
+    
 
     </Route>
     </Switch>

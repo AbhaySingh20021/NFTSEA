@@ -45,11 +45,11 @@ actor OpenD {
         case (?result) result;
       };
       return List.toArray(userNFTS);
-      
+
       }
 
 
 
-    }
+    };
 
-};
+
