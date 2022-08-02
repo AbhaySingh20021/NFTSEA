@@ -3,20 +3,24 @@ import { useForm } from "react-hook-form";
 
 import { opend} from "../../../declarations/opend"
 import { Principal } from "@dfinity/principal"
+import Item from "./Item";
 
-const {register, handleSubmit} = useForm();
 
-async function onSubmit(data){
 
-  const name = data.name;
-  const image = data.image[0];
-  const imageByteData = {...new Uint8Array(await image.arrayBuffer())};
-  const newNFTId = await opend.mint(imageByteData, name);
-  console.log(newNFTId.toText());
-
-}
 
 function Minter() {
+  const {register, handleSubmit} = useForm();
+  async function onSubmit(data){
+
+    const name = data.name;
+    const image = data.image[0];
+    const imageByteData = [...new Uint8Array(await image.arrayBuffer())];
+    const newNFTId = await opend.mint(imageByteData, name);
+    console.log(newNFTId.toText());
+  
+  }
+  
+
   return (
     <div className="minter-container">
       <h3 className="makeStyles-title-99 Typography-h3 form-Typography-gutterBottom">
