@@ -36,7 +36,7 @@ function Header() {
           <img className="header-logo-11" src={logo} />
           <div className="header-vertical-9"></div>
           <Link to ="/">
-          <h5 className="Typography-root header-logo-text">OpenD</h5>
+          <h5 className="Typography-root header-logo-text">NFT SEA</h5>
 
           </Link>
           <div className="header-empty-6"></div>
@@ -48,7 +48,7 @@ function Header() {
           </button>
           <button className="ButtonBase-root Button-root Button-text header-navButtons-3">
             <Link to="/minter" >
-            Minter
+            Mint NFTS
             </Link>
           </button>
           <button className="ButtonBase-root Button-root Button-text header-navButtons-3">
