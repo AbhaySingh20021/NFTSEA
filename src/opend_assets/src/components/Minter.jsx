@@ -31,9 +31,9 @@ function Minter() {
           <div></div>
           <div></div>
         </div>
-        <h3 className="makeStyles-title-99 Typography-h3 form-Typography-gutterBottom">
+        <h2 className="makeStyles-title-99 Typography-h3 form-Typography-gutterBottom">
           Create NFT
-        </h3>
+        </h2>
         <h6 className="form-Typography-root makeStyles-subhead-102 form-Typography-subtitle1 form-Typography-gutterBottom">
           Upload Image
         </h6>

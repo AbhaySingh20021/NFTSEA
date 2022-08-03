@@ -3,12 +3,16 @@ import logo from "../../assets/logo.png";
 import { Actor, HttpAgent } from "@dfinity/agent";
 import { idlFactory } from "../../../declarations/nft";
 import { Principal } from "@dfinity/principal";
+import Button from "./button";
+import { opend} from "../../../declarations/opend"
 
 
 function Item(props) {
   const [name, setName] = useState();
   const [owner, setOwner] = useState();
   const [image, setImage] = useState();
+  const [button, setButton] = useState();
+  const [priceInput, setpriceInput] = useState();
 
   const id = (props.id);
 
@@ -32,11 +36,37 @@ function Item(props) {
     setName(name);
     setOwner(owner.toText());
     setImage(image);
+    setButton(<Button id={name} handleClick={handleSell} text="sell" />)
   }
 
   useEffect(() => {
     loadNFT();
   }, []);
+
+  let price;
+
+  function handleSell(){
+    
+    console.log("clciked");
+    setpriceInput(<input
+      placeholder="Price in DANG"
+      type="number"
+      className="price-input"
+      value={price}
+      onChange={(e) => price=e.target.value}
+    />);
+    setButton(<Button handleClick={sellItem} text="Confirm"  />)
+
+
+
+  }
+
+  async function sellItem(){
+    console.log("confirmed click");
+  const listingresult = await opend.listItem(props.id,Number(price));
+  console.log(listingresult);
+
+  }
 
   return (
     <div className="disGrid-item">
@@ -53,6 +83,8 @@ function Item(props) {
           <p className="disTypography-root makeStyles-bodyText-24 disTypography-body2 disTypography-colorTextSecondary">
             Owner: {owner}
           </p>
+          {priceInput}
+          {button}
         </div>
       </div>
     </div>
