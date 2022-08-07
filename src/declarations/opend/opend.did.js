@@ -1,5 +1,6 @@
 export const idlFactory = ({ IDL }) => {
   return IDL.Service({
+    'getOpenDCanister' : IDL.Func([], [IDL.Principal], ['query']),
     'getOwnedNFTS' : IDL.Func(
         [IDL.Principal],
         [IDL.Vec(IDL.Principal)],

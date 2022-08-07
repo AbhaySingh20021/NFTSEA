@@ -4,5 +4,6 @@ export interface NFT {
   'getCanisterID' : () => Promise<Principal>,
   'getName' : () => Promise<string>,
   'getOwner' : () => Promise<Principal>,
+  'transferOwner' : (arg_0: Principal) => Promise<string>,
 }
 export interface _SERVICE extends NFT {}

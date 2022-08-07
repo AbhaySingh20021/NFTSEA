@@ -73,10 +73,13 @@ actor OpenD {
         else {
           return "you dont own NFT"
         }
-
-       
-
       };
+
+      public query func getOpenDCanister() : async Principal{
+        return Principal.fromActor(OpenD);
+      }
+
+
 
 
 
