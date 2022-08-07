@@ -77,6 +77,14 @@ actor OpenD {
 
       public query func getOpenDCanister() : async Principal{
         return Principal.fromActor(OpenD);
+      };
+
+      public query func isListed(id: Principal) : async Bool {
+
+        if(mapoflist.get(id) == null) {
+          return false
+        }
+        else { return  true }
       }
 
 

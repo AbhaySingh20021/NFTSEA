@@ -5,6 +5,7 @@ import { idlFactory } from "../../../declarations/nft";
 import { Principal } from "@dfinity/principal";
 import Button from "./button";
 import { opend} from "../../../declarations/opend"
+import { nft } from "../../../declarations/nft/index";
 
 
 function Item(props) {
@@ -13,6 +14,10 @@ function Item(props) {
   const [image, setImage] = useState();
   const [button, setButton] = useState();
   const [priceInput, setpriceInput] = useState();
+   const [blur, setBlur] = useState();
+
+
+  const [loaderHidden, setLoaderHidden] = useState(true);
 
   const id = (props.id);
 
@@ -41,7 +46,14 @@ function Item(props) {
     setName(name);
     setOwner(owner.toText());
     setImage(image);
-    setButton(<Button id={name} handleClick={handleSell} text="sell" />)
+    const nftIsListed = await opend.isListed(props.id);
+    if ( nftIsListed){
+      setOwner("OpenD")
+      setBlur({filter: "blur(4px)" })
+    }
+     else {  setButton(<Button id={name} handleClick={handleSell} text="sell" />) }
+
+
   }
 
   useEffect(() => {
@@ -61,12 +73,16 @@ function Item(props) {
       onChange={(e) => price=e.target.value}
     />);
     setButton(<Button handleClick={sellItem} text="Confirm"  />)
-
-
-
+    
+    
+    setLoaderHidden(true)
+    
   }
 
   async function sellItem(){
+    setLoaderHidden(false);
+
+    
     console.log("confirmed click");
   const listingresult = await opend.listItem(props.id,Number(price));
   console.log(listingresult);
@@ -74,7 +90,15 @@ function Item(props) {
 
     const openDId = await  opend.getOpenDCanister();
    const tresulr = await NFTActor.transferOwner(openDId);
-   console.log("Tranfer" + tresulr)
+   console.log("Tranfer" + tresulr);
+   setBlur({filter: "blur(4px)" })
+   
+   setpriceInput();
+   setButton();
+   setOwner("OpenID");
+   setLoaderHidden(true);
+
+   
 
   }
 
@@ -86,7 +110,14 @@ function Item(props) {
         <img
           className="disCardMedia-root makeStyles-image-19 disCardMedia-media disCardMedia-img"
           src={image}
+          style ={blur}
         />
+        <div hidden={loaderHidden} className="lds-ellipsis"  >
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
         <div className="disCardContent-root">
           <h2 className="disTypography-root makeStyles-bodyText-24 disTypography-h5 disTypography-gutterBottom">
             {name}
