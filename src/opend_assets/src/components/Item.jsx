@@ -7,6 +7,7 @@ import Button from "./button";
 import { opend} from "../../../declarations/opend"
 import { nft } from "../../../declarations/nft/index";
 import CURRENT_USER_ID from "../index";
+import PriceLabel from "./PriceLabel";
 
 
 function Item(props) {
@@ -16,6 +17,7 @@ function Item(props) {
   const [button, setButton] = useState();
   const [priceInput, setpriceInput] = useState();
    const [blur, setBlur] = useState();
+   const [PriceLabel, setPriceLabel] = useState();
 
 
   const [loaderHidden, setLoaderHidden] = useState(true);
@@ -64,9 +66,10 @@ function Item(props) {
     if (originalOwner.toText() != CURRENT_USER_ID.toText()){
       setButton(<Button id={name} handleClick={handleBuy} text="Buy" />)
 
-
-
     }
+
+    const price = await opend.getListedNFTPrice(props.id);
+    setPriceLabel(<PriceLabel sellPrice= {price.toString()} />);
 
 
 
@@ -145,6 +148,7 @@ function Item(props) {
           <div></div>
         </div>
         <div className="disCardContent-root">
+          {PriceLabel}
           <h2 className="disTypography-root makeStyles-bodyText-24 disTypography-h5 disTypography-gutterBottom">
             {name}
             <span className="purple-text"></span>
