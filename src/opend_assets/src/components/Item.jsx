@@ -46,6 +46,9 @@ function Item(props) {
     setName(name);
     setOwner(owner.toText());
     setImage(image);
+
+    if (props.role == "collection"){
+      
     const nftIsListed = await opend.isListed(props.id);
     if ( nftIsListed){
       setOwner("OpenD")
@@ -55,6 +58,16 @@ function Item(props) {
 
 
   }
+  else if (props.role == "discover"){
+    setButton(<Button id={name} handleClick={handleBuy} text="Buy" />)
+
+
+
+  }
+
+    }
+
+
 
   useEffect(() => {
     loadNFT();
@@ -101,6 +114,12 @@ function Item(props) {
    
 
   }
+
+  }
+
+  async function handleBuy() {
+
+    console.log("Buy was triggered");
 
   }
 
