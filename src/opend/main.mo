@@ -91,8 +91,18 @@ actor OpenD {
           return false
         }
         else { return  true }
-      }
+      };
 
+      public query func getoriginalOwner(id: Principal) : async Principal{
+        var listing: Listing = switch(mapoflist.get(id)){
+          case null return Principal.fromText("");
+          case (?result) result;
+        };
+        return  listing.itemOwner;
+
+
+
+      };
 
 
 

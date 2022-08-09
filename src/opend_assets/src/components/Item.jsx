@@ -6,6 +6,7 @@ import { Principal } from "@dfinity/principal";
 import Button from "./button";
 import { opend} from "../../../declarations/opend"
 import { nft } from "../../../declarations/nft/index";
+import CURRENT_USER_ID from "../index";
 
 
 function Item(props) {
@@ -59,7 +60,13 @@ function Item(props) {
 
   }
   else if (props.role == "discover"){
-    setButton(<Button id={name} handleClick={handleBuy} text="Buy" />)
+    const originalOwner = await opend.getoriginalOwner(props.id);
+    if (originalOwner.toText() != CURRENT_USER_ID.toText()){
+      setButton(<Button id={name} handleClick={handleBuy} text="Buy" />)
+
+
+
+    }
 
 
 
